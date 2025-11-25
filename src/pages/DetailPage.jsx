@@ -7,7 +7,10 @@ import Edit from '../components/Edit'
 
 export default function DetailPage() {
 
-  const router = useRouter()
+
+
+
+/*   const router = useRouter()
   const { id } = router.query
 
   const [isEditing, setIsEditing] = useState(false)
@@ -22,10 +25,12 @@ export default function DetailPage() {
   }
   const pokemon = getPokemonsById(id)
   
-  return (
+ */  return (
+
+  
     <div className='page'>
       <div>
-        <h2 className='title'>{pokemon?.name}</h2>
+  {/*       <h2 className='title'>{pokemon?.name}</h2>
       </div>
       <div>
         {
@@ -50,7 +55,7 @@ export default function DetailPage() {
         <Link className='button-link' href={{
             pathname:'/'
             }}>Back to Homepage</Link>
-        </button>
+        </button> */}
       </div>
     </div>
   )

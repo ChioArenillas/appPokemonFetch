@@ -4,12 +4,16 @@ import { getPokemonsById } from '../pages/api/userFetch';
 
 export default function PokemonDetail({ pokemonId }) {
 
+
+/*   
   const [pokemonLocal, setPokemonLocal] = useState({})
 
   useEffect(() => {
     let pokemonAux = getPokemonsById(pokemonId)
     setPokemonLocal(pokemonAux)
   }, [])
+
+ */
 
   return (
     <div className='details'>

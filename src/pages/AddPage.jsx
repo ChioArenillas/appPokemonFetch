@@ -5,7 +5,9 @@ import { addPokemon, getNextId } from './api/userFetch'
 
 export default function AddPage() {
 
-  const router = useRouter()
+
+
+   const router = useRouter()
 
   const [id, setId] = useState('')
   const [name, setName] = useState('')
@@ -15,11 +17,11 @@ export default function AddPage() {
   const [description, setDescription] = useState('')
 
   const [error, setError] = useState(false)
-  useEffect(() => {
+/*   useEffect(() => {
     const nextId = getNextId()
     setId(nextId)
   }, [])
-
+ */
   const nameHandler = (e) => {
     setName(e.target.value)
   }
@@ -51,17 +53,17 @@ export default function AddPage() {
     router.back()
   }
 
-  return (
+   return (
     <div className='page'>
-      <div>
+       <div>
         <h2 className='title'>ADD POKEMON</h2>
       </div>
       <div className='form'>
-        <div>
+{/*         <div>
           <span>Id: </span>
           <input type="number" value={id} disabled />
         </div>
-        <div>
+ */}        <div>
           <span>Name: </span>
           <input type="text" value={name} onChange={nameHandler} />
         </div>
@@ -99,7 +101,7 @@ export default function AddPage() {
             pathname:'/'
             }}>Back to Homepage</Link>
         </button>
-      </div>
+      </div> 
     </div>
   )
 }

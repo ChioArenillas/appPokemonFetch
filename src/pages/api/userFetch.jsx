@@ -1,26 +1,41 @@
 import { pokemons } from './dbPokemons'
 
-export const getPokemons = () => {
-    return pokemons.map(pokemon => {
+export const getPokemons = async () => {
+    const url = 'https://pokeapi.co/api/v2/pokemon'
+    const response = await fetch(url)
+    const pokemonsWithoutFormat = await response.json()
+    const pokemonsWithFormat = formatArray(pokemonsWithoutFormat)
+    return pokemonsWithFormat
+    }
+
+const formatArray = (arrayPokemons) => {
+    const newArray = arrayPokemons.results.map((pokemon, index) => {
         return {
-            img: pokemon.img,
-            id: pokemon.id,
+            id: index,
             name: pokemon.name,
-            type: pokemon.type
+            url: pokemon.url
         }
     })
+    return newArray
 }
+
+
+
+ /* ************************** */
+
+
+
 
 export const getPokemonsById = (idParam) => {
     let pokemonAux = pokemons.find(pokemon => pokemon.id == idParam)
     return pokemonAux
 }
 
-export const getNextId = () => {
+/* export const getNextId = () => {
     if (pokemons.length === 0) return 1
     return Math.max(...pokemons.map(p => Number(p.id))) + 1
 }
-export const addPokemon = (id, name, height, weight, type, description) => {
+ */export const addPokemon = (id, name, height, weight, type, description) => {
     pokemons.push({
         id: id,
         name: name,

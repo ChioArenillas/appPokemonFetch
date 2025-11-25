@@ -9,20 +9,45 @@ export default function Pokemons({ addFavourite, favourites }) {
 
   const [pokemons, setPokemons] = useState([])
 
-  const router = useRouter()
+/*   const router = useRouter()
   const {id} = router.query
-
+ */
   useEffect(() => {
-    let pokemonsAux = getPokemons()
+    const fetchToPokemon = async () =>{ //este es el llamado a la api
+    const pokemonsAux = await getPokemons()
     setPokemons(pokemonsAux)
+    }
+    fetchToPokemon()
   }, [])
 
+  const onClickHandler = (name) => {
+  }
   
   return (
+
+    
     <div className='pokemon-section'>
       <h2 className='subtitle'>All Pokemon</h2>
       <div className='pokemons-list'>
-      {
+        {pokemons.map((pokemon, index) => {
+          return <div className='card' key={index}>
+            <div>{pokemon.id}</div>
+            <div>{pokemon.name}</div>
+            <div>{pokemon.url}</div>
+            <button onClick={() => onClickHandler(pokemon.name)}>Details</button>
+            </div>
+        })}
+
+
+
+
+
+
+
+
+
+
+{/*       {
         pokemons.map((pokemon) => {
           const isFavourite = favourites.find(f => f.id === pokemon.id);
           return (
@@ -49,7 +74,7 @@ export default function Pokemons({ addFavourite, favourites }) {
           )}
           </div>
         )})
-      }
+      } */}
       </div>
     </div>
   )

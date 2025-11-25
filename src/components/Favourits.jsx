@@ -10,7 +10,7 @@ export default function Favourits({ favourites, deleteFavourite }) {
         <h2 className='subtitle'>Favourite Pokemon</h2>
       </div>
       <div className='pokemons-list'>
-        
+         
           {favourites.length === 0 && (
             <span className='card'>Not favourite Pokemon yet. Add some.</span>
           )}

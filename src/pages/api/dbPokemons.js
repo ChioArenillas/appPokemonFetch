@@ -1,4 +1,4 @@
-export let pokemons = [
+/* export let pokemons = [
     {
         id: 1,
         name: 'Bulbasaur',
@@ -90,3 +90,4 @@ export let pokemons = [
         description: 'A highly adaptable Pokémon whose unstable genetic makeup allows for multiple evolutions.'
     }
 ]
+ */

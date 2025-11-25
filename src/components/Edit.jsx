@@ -4,6 +4,10 @@ import { modifyName } from '../pages/api/userFetch'
 
 export default function Edit({ pokemonId }) {
 
+
+
+
+/*     
     const [newName, setNewName] = useState('')
     const [confirmNewName, setConfirmNewName] = useState('')
     const [error, setError] = useState(false)
@@ -27,7 +31,7 @@ export default function Edit({ pokemonId }) {
             setSuccess(false)
         }
     }
-
+ */
     return (
         <div>
             <div>
