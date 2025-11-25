@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react'
-import { modifyName } from '../pages/api/userFectch'
+import { modifyName } from '../pages/api/userFetch'
 
 export default function Edit({ pokemonId }) {
 
