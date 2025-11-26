@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { addPokemon, getNextId } from './api/userFetch'
+import { addPokemon, getNextId } from '../api/userFetch'
 
 export default function AddPage() {
 

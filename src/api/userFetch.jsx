@@ -19,7 +19,26 @@ const formatArray = (arrayPokemons) => {
     return newArray
 }
 
+export const getpokemonByName = async (nameParam) => {
+    if(!nameParam) return undefined
+    const baseURL = 'https://pokeapi.co/api/v2/pokemon/'
+    const url = baseURL + nameParam
+    const response = await fetch(url)
+    const pokemonWithoutFormat = await response.json()
+    const retAux = formatPokemonObject(pokemonWithoutFormat)
+    return retAux
 
+}
+export const formatPokemonObject = (pokemon) => {
+    return{
+        name: pokemon.name,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        types: pokemon.types.map(t => {
+            return t.type.name
+        }),
+    }
+}
 
  /* ************************** */
 

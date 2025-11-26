@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { getPokemons } from '../pages/api/userFetch';
+import { getpokemonByName, getPokemons } from '../api/userFetch';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,7 +20,9 @@ export default function Pokemons({ addFavourite, favourites }) {
     fetchToPokemon()
   }, [])
 
-  const onClickHandler = (name) => {
+  const onClickHandler = async (name) => {
+    const pokemonDetails = await getpokemonByName(name)
+    console.log(pokemonDetails)
   }
   
   return (
@@ -34,6 +36,14 @@ export default function Pokemons({ addFavourite, favourites }) {
             <div>{pokemon.id}</div>
             <div>{pokemon.name}</div>
             <div>{pokemon.url}</div>
+    {/*       <div>
+            <Link href={{
+              pathname: 'DetailPage',
+              query: {
+                name: pokemon.name
+              }
+            }}>Info</Link>
+          </div> */}
             <button onClick={() => onClickHandler(pokemon.name)}>Details</button>
             </div>
         })}

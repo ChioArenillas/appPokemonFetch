@@ -1,9 +1,16 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { getPokemonsById } from '../pages/api/userFetch';
+import { getpokemonByName, getPokemonsById } from '../api/userFetch';
 
-export default function PokemonDetail({ pokemonId }) {
+export default function PokemonDetail({ name }) {
 
+  //nuevo, no se si está bien
+  const [pokemonLocal, setPokemonLocal] = useState({})
+
+  useEffect(() =>{
+    let pokemonAux = getpokemonByName(name)
+    setPokemonLocal(pokemonAux)
+  }, [])
 
 /*   
   const [pokemonLocal, setPokemonLocal] = useState({})

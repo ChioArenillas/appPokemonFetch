@@ -33,9 +33,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <Pokemons 
-        
-         addFavourite={addFavourite} favourites={favourites}  />
+        <Pokemons addFavourite={addFavourite} favourites={favourites}  />
       </div>
       <div>
          <Favourits favourites={favourites} deleteFavourite={deleteFavourite} />
