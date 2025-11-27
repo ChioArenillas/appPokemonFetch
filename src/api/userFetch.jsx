@@ -1,79 +1,49 @@
-import { pokemons } from './dbPokemons'
+// --- SOLO POKEAPI REAL ---
+// No tocamos ni añadimos, ni editamos Pokémon reales.
 
 export const getPokemons = async () => {
-    const url = 'https://pokeapi.co/api/v2/pokemon'
-    const response = await fetch(url)
-    const pokemonsWithoutFormat = await response.json()
-    const pokemonsWithFormat = formatArray(pokemonsWithoutFormat)
-    return pokemonsWithFormat
-    }
+  const url = "https://pokeapi.co/api/v2/pokemon?limit=150";
+  const response = await fetch(url);
+  const { results } = await response.json();
 
-const formatArray = (arrayPokemons) => {
-    const newArray = arrayPokemons.results.map((pokemon, index) => {
-        return {
-            id: index,
-            name: pokemon.name,
-            url: pokemon.url
-        }
-    })
-    return newArray
-}
+  return results.map((pokemon) => {
+    const id = pokemon.url.split("/").filter(Boolean).pop();
+    return {
+      id: Number(id),
+      name: pokemon.name,
+    };
+  });
+};
 
-export const getpokemonByName = async (nameParam) => {
-    if(!nameParam) return undefined
-    const baseURL = 'https://pokeapi.co/api/v2/pokemon/'
-    const url = baseURL + nameParam
-    const response = await fetch(url)
-    const pokemonWithoutFormat = await response.json()
-    const retAux = formatPokemonObject(pokemonWithoutFormat)
-    return retAux
+export const getPokemonById = async (id) => {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const response = await fetch(url);
 
-}
-export const formatPokemonObject = (pokemon) => {
-    return{
-        name: pokemon.name,
-        height: pokemon.height,
-        weight: pokemon.weight,
-        types: pokemon.types.map(t => {
-            return t.type.name
-        }),
-    }
-}
+  if (!response.ok) return null;
 
- /* ************************** */
+  const data = await response.json();
 
+  return {
+    id: data.id,
+    name: data.name,
+    height: data.height,
+    weight: data.weight,
+    types: data.types.map((t) => t.type.name),
+    img: data.sprites.other["official-artwork"].front_default,
+  };
+};
 
+// --- FUNCIONES "VISUALES" (NO AFECTAN A LA API REAL) ---
 
+export const addPokemon = (pokemon) => {
+  // No se guarda en ninguna base real
+  console.log("ADD VISUAL:", pokemon);
+};
 
-export const getPokemonsById = (idParam) => {
-    let pokemonAux = pokemons.find(pokemon => pokemon.id == idParam)
-    return pokemonAux
-}
+export const modifyName = (id, newName) => {
+  console.log(`MODIFY VISUAL: id=${id}, newName=${newName}`);
+};
 
-/* export const getNextId = () => {
-    if (pokemons.length === 0) return 1
-    return Math.max(...pokemons.map(p => Number(p.id))) + 1
-}
- */export const addPokemon = (id, name, height, weight, type, description) => {
-    pokemons.push({
-        id: id,
-        name: name,
-        height: height,
-        weight: weight,
-        type: type,
-        description: description
-    })
-}
-
-export const deletePokemonById = (idPokemon) => {
-    let pokemonAux = pokemons.findIndex(p => p.id == idPokemon)
-    pokemons.splice(pokemonAux, 1)
-}
-
-export const modifyName = (idPokemon, newName) => {
-    pokemons.map(pokemon => {
-        if (pokemon.id == idPokemon){
-            pokemon.name = newName
-        }
-    })
-}
+export const deletePokemonById = (id) => {
+  console.log(`DELETE VISUAL: id=${id}`);
+};

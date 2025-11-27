@@ -1,107 +1,79 @@
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { addPokemon, getNextId } from '../api/userFetch'
+"use client";
+import React, { useState } from 'react';
+import { addPokemon } from '../api/userFetch';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function AddPage() {
 
+  const router = useRouter();
 
+  const [name, setName] = useState('');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [type, setType] = useState('');
+  const [description, setDescription] = useState('');
+  const [error, setError] = useState(false);
 
-   const router = useRouter()
-
-  const [id, setId] = useState('')
-  const [name, setName] = useState('')
-  const [height, setHeight] = useState('')
-  const [weight, setWeight] = useState('')
-  const [type, setType] = useState('')
-  const [description, setDescription] = useState('')
-
-  const [error, setError] = useState(false)
-/*   useEffect(() => {
-    const nextId = getNextId()
-    setId(nextId)
-  }, [])
- */
-  const nameHandler = (e) => {
-    setName(e.target.value)
-  }
-  const heightHandler = (e) => {
-    setHeight(e.target.value)
-  }
-  const weightHandler = (e) => {
-    setWeight(e.target.value)
-  }
-  const typeHandler = (e) => {
-    setType(e.target.value)
-  }
-  const descriptionHandler = (e) => {
-    setDescription(e.target.value)
-  }
   const addPokemonClick = () => {
-    if(
-      id === '' ||
-      name === '' ||
-      weight === '' ||
-      type === '' ||
-      description === ''
-    ){
-      setError(true)
-      return
+    if (!name || !weight || !type || !description) {
+      setError(true);
+      return;
     }
-    setError(false)
-    addPokemon (id, name, height, weight, type, description)
-    router.back()
-  }
 
-   return (
-    <div className='page'>
-       <div>
-        <h2 className='title'>ADD POKEMON</h2>
-      </div>
-      <div className='form'>
-{/*         <div>
-          <span>Id: </span>
-          <input type="number" value={id} disabled />
-        </div>
- */}        <div>
+    setError(false);
+
+    addPokemon({
+      name,
+      height,
+      weight,
+      type,
+      description
+    });
+
+    alert("This action is visual only (not saved in real API).");
+
+    router.back();
+  };
+
+  return (
+    <div className="page">
+      <h2 className="title">ADD POKEMON</h2>
+
+      <div className="form">
+        <div>
           <span>Name: </span>
-          <input type="text" value={name} onChange={nameHandler} />
+          <input value={name} onChange={(e) => setName(e.target.value)} />
         </div>
+
         <div>
           <span>Height: </span>
-          <input type="number" value={height} onChange={heightHandler}/>
+          <input value={height} onChange={(e) => setHeight(e.target.value)} />
         </div>
+
         <div>
           <span>Weight: </span>
-          <input type="number" value={weight} onChange={weightHandler}/>
+          <input value={weight} onChange={(e) => setWeight(e.target.value)} />
         </div>
+
         <div>
           <span>Type: </span>
-          <input type="text" value={type} onChange={typeHandler} />
+          <input value={type} onChange={(e) => setType(e.target.value)} />
         </div>
+
         <div>
           <span>Description: </span>
-          <input type="text" value={description} onChange={descriptionHandler}/>
+          <input value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
       </div>
-      {
-        error && (
-          <div className='error'>
-            <span>Error: empty fields</span>
 
-          </div>
-        )
-      }
-      <div>
-        <button onClick={addPokemonClick}>Add Pokemon</button>
-      </div>
-      <div>
-        <button>
-        <Link className='button-link' href={{
-            pathname:'/'
-            }}>Back to Homepage</Link>
-        </button>
-      </div> 
+      {error && <div className="error">Error: Empty fields</div>}
+
+      <button onClick={addPokemonClick}>Add Pokemon</button>
+
+      <button>
+        <Link className="button-link" href="/">Back to Homepage</Link>
+      </button>
     </div>
-  )
+  );
 }

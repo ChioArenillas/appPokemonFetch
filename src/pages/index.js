@@ -5,7 +5,6 @@ import Favourits from '../components/Favourits';
 import { useState } from 'react';
 
 
-// cambiar: quitar imágenes, cambiar por URL, dejar solo name y url en el menu
 
 export default function Home() {
    const [favourites, setFavourites] = useState([])

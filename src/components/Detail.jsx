@@ -1,54 +1,40 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { getpokemonByName, getPokemonsById } from '../api/userFetch';
+import React from "react";
 
-export default function PokemonDetail({ name }) {
-
-  //nuevo, no se si está bien
-  const [pokemonLocal, setPokemonLocal] = useState({})
-
-  useEffect(() =>{
-    let pokemonAux = getpokemonByName(name)
-    setPokemonLocal(pokemonAux)
-  }, [])
-
-/*   
-  const [pokemonLocal, setPokemonLocal] = useState({})
-
-  useEffect(() => {
-    let pokemonAux = getPokemonsById(pokemonId)
-    setPokemonLocal(pokemonAux)
-  }, [])
-
- */
+export default function PokemonDetail({ pokemon, description }) {
+  if (!pokemon) return null; // Seguridad extra
 
   return (
-    <div className='details'>
-      <img className='pokemon-img-card' src={pokemonLocal?.img} alt={pokemonLocal?.name} />
+
+    <div>
+      <h2 className="title">{pokemon.name.toUpperCase()}</h2>
+    <div className="details">
+      <img className="pokemon-img-card" src={pokemon.img} alt={pokemon.name} />
+
       <div>
-        <div>
-          <span className='detail-title'>Height: </span>
-          <span>{pokemonLocal?.height}</span>
-        </div>
-        <div>
-          <span className='detail-title'>Weight: </span>
-          <span>{pokemonLocal?.weight}</span>
-        </div>
+        <b>Height:</b> {pokemon.height / 10} m
       </div>
       <div>
-        <span className='detail-title'>Type: </span>
+        <b>Weight:</b> {pokemon.weight / 10} kg
+      </div>
+
+      <div>
+        <b>Types:</b>
         <div className="types">
-          {pokemonLocal?.type?.map((t, index) => (
-            <span key={index} className={`type-badge ${t.toLowerCase()}`}>
+          {pokemon.types?.map((t) => (
+            <span key={t} className={`type-badge ${t}`}>
               {t}
             </span>
           ))}
         </div>
-      </div>        
-      <div>
-        <span className='detail-title'>Description: </span>
-        <span>{pokemonLocal?.description}</span>
       </div>
+
+      <div>
+        <b>Description:</b>
+        <p>{description || "No description available."}</p>
+      </div>
+
     </div>
-  )
+    </div>
+  );
 }

@@ -1,75 +1,55 @@
 "use client";
-import React, { useState } from 'react'
-import { modifyName } from '../api/userFetch'
+import React, { useState } from "react";
+import { modifyName } from "../api/userFetch";
 
 export default function Edit({ pokemonId }) {
+  const [newName, setNewName] = useState("");
+  const [confirmNewName, setConfirmNewName] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-
-
-
-/*     
-    const [newName, setNewName] = useState('')
-    const [confirmNewName, setConfirmNewName] = useState('')
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(false)
-
-    const onChangeNewNameHandle = (e) => {
-        setNewName(e.target.value)
+  const changeName = () => {
+    if (newName !== confirmNewName) {
+      setError(true);
+      setSuccess(false);
+      return;
     }
-    const onChangeConfirmNewNameHandle = (e) => {
-        setConfirmNewName(e.target.value)
-    }
-    const changeName = () => {
-        if (newName === confirmNewName) {
-            modifyName(pokemonId, newName)
-            setError(false)
-            setSuccess(true)
-            setNewName('')
-            setConfirmNewName('')
-        } else {
-            setError(true)
-            setSuccess(false)
-        }
-    }
- */
-    return (
+
+    setError(false);
+    setSuccess(true);
+
+    modifyName(pokemonId, newName);
+    alert("This change is visual only (not saved in real API).");
+  };
+
+  return (
+    <div>
+      <h2 className="subtitle">Edit Pokemon Name</h2>
+
+      <div className="form">
         <div>
-            <div>
-                <h2 className='subtitle'>Edit Pokemon Name</h2>
-            </div>
-            <div className='form'>
-                <div>
-                    <label>New Name: </label>
-                    <input type="text" value={newName} onChange={onChangeNewNameHandle} />
-                </div>
-                <div>
-                    <label>Confirm New Name: </label>
-                    <input type="text" value={confirmNewName} onChange={onChangeConfirmNewNameHandle} />
-                </div>
-            </div>
-            <div className='change'>
-                <div>
-                    {
-                        error ?
-                            <div>
-                                <span className='error'>Error: Names do not mach</span>
-                            </div>
-                            :
-                            null
-                    }
-                    {
-                        success ?
-                            <div>
-                                <span className='success'>Name changed</span>
-                            </div>
-                            :
-                            null
-                    }
-                </div>
-                <div>
-                    <button onClick={changeName}>Change Name</button>
-                </div>
-            </div>
+          <label>New Name:</label>
+          <input
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
         </div>
-    )
+
+        <div>
+          <label>Confirm New Name:</label>
+          <input
+            type="text"
+            value={confirmNewName}
+            onChange={(e) => setConfirmNewName(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {error && <div className="error">Names do not match</div>}
+      {success && <div className="success">Name changed (visually)</div>}
+
+      <button onClick={changeName}>Change Name</button>
+    </div>
+  );
 }
